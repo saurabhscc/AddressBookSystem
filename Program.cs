@@ -9,24 +9,23 @@ namespace AddressBookSystem
             Console.WriteLine("Welcome To AddressBook System Program");
             while (true)
             {
-                Console.WriteLine("**************=================****************");
-                Console.WriteLine("Enter First Name ");
-                string firstName = Console.ReadLine();
-                Console.WriteLine("Enter Last Name ");
-                string lastName = Console.ReadLine();
-                Console.WriteLine("Enter address ");
-                string address = Console.ReadLine();
-                Console.WriteLine("Enter City: ");
-                string city = Console.ReadLine();
-                Console.WriteLine("Enter State: ");
-                string state = Console.ReadLine();
-                Console.WriteLine("Enter Zip Code: ");
-                int zipCode = Convert.ToInt32(Console.ReadLine());
-                Console.WriteLine("Enter Phone Number: ");
-                string phNo = Console.ReadLine();
-                Console.Write("Enter Email-id: ");
-                string emailId = Console.ReadLine();
-                break;
+                Console.WriteLine("1. Add member to Contact list \n2.View Members in Contact List\n3.Exit");
+                Console.WriteLine("Enter an option:");
+                switch (Convert.ToInt32(Console.ReadLine()))
+                {
+                    case 1:
+                        AddressBookMain.AddMember();
+                        break;
+                    case 2:
+                        AddressBookMain.ViewContacts();
+                        break;
+
+                    case 3:
+                        // to exit from main method
+                        Console.WriteLine("Exited");
+                        return;
+
+                }
             }
         }
     }
