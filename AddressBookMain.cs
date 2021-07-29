@@ -25,6 +25,7 @@ namespace AddressBookSystem
             person.state = Console.ReadLine();
             Console.Write("Enter Zip Code: ");
             person.zipCode = Convert.ToInt32(Console.ReadLine());
+
             while (true)
             {
                 Console.Write("Enter Phone Number: ");
@@ -85,7 +86,7 @@ namespace AddressBookSystem
             Console.WriteLine($"Email: {x.email}");
         }
         public static void EditDetails()
-        {
+        {//flag variable
             int f;
             if (contacts.Count > 0)
             {
@@ -175,10 +176,14 @@ namespace AddressBookSystem
                     else
                     {
                         Console.WriteLine("Entered name is not in Contact list");
-                        Console.WriteLine("***********OR*************");
-                        Console.WriteLine("Your contact list is empty");
+                        
+                        
                     }
                 }
+            }
+            else
+            {
+                Console.WriteLine("Your contact list is empty");
             }
             
         }
