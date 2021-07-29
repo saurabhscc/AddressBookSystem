@@ -6,75 +6,123 @@ namespace AddressBookSystem
 {
     class AddressBookMain
     {
-
-        private static List<Person> contacts = new List<Person>();
-        public static void AddMember()
+       //list for storing objects for person class
+        private List<Person> contacts;
+        //address book dictioanry to store values
+        private static Dictionary<string, List<Person>> addressBookDictionary = new Dictionary<string, List<Person>>();
+        public void AddMember()
         {
-            //object for person class
-            Person person = new Person();
-
-            Console.Write("Enter First Name: ");
-            person.firstName = Console.ReadLine();
-            Console.Write("Enter Last Name: ");
-            person.lastName = Console.ReadLine();
-            Console.Write("Enter Address: ");
-            person.address = Console.ReadLine();
-            Console.Write("Enter City: ");
-            person.city = Console.ReadLine();
-            Console.Write("Enter State: ");
-            person.state = Console.ReadLine();
-            Console.Write("Enter Zip Code: ");
-            person.zipCode = Convert.ToInt32(Console.ReadLine());
-
+            string addressBookName;
+            contacts = new List<Person>();
             while (true)
             {
-                Console.Write("Enter Phone Number: ");
-                string phNo = Console.ReadLine();
-                if (phNo.Length == 10)
+                Console.WriteLine("Enter The Name of the Address Book");
+                addressBookName = Console.ReadLine();
+                //Checking uniqueness of address books
+                if (addressBookDictionary.Count > 0)
                 {
-                    person.phoneNumber = phNo;
-                    break;
+                    if (addressBookDictionary.ContainsKey(addressBookName))
+                    {
+                        Console.WriteLine("This name of address book already exists");
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
                 else
                 {
-                    Console.WriteLine("Enter Valid Phone Number,It should Contain 10 digits");
-                }
-            }
-            while (true)
-            {
-                Console.Write("Enter Email-id: ");
-                string emailId = Console.ReadLine();
-                if (emailId.Contains("@"))
-                {
-                    person.email = emailId;
                     break;
                 }
-                else
-                {
-                    Console.WriteLine("Enter Valid Email Id, It should Contains @ ");
-                }
+
             }
-            contacts.Add(person);
-            Console.WriteLine("Added Successfully");
+
+            Console.Write("Enter Number of contacts you want to add:");
+            int numOfContacts = Convert.ToInt32(Console.ReadLine());
+            while (numOfContacts > 0)
+            {
+                //object for person class
+                Person person = new Person();
+
+                Console.Write("Enter First Name: ");
+                person.firstName = Console.ReadLine();
+                Console.Write("Enter Last Name: ");
+                person.lastName = Console.ReadLine();
+                Console.Write("Enter Address: ");
+                person.address = Console.ReadLine();
+                Console.Write("Enter City: ");
+                person.city = Console.ReadLine();
+                Console.Write("Enter State: ");
+                person.state = Console.ReadLine();
+                Console.Write("Enter Zip Code: ");
+                person.zipCode = Convert.ToInt32(Console.ReadLine());
+
+                //verification for phone number 
+                while (true)
+                {
+                    Console.Write("Enter Phone Number: ");
+                    string phNo = Console.ReadLine();
+                    if (phNo.Length == 10)
+                    {
+                        person.phoneNumber = phNo;
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Enter Valid Phone Number, It should Contains 10 digits");
+                    }
+                }
+                //verification for email id
+                while (true)
+                {
+                    Console.Write("Enter Email-id: ");
+                    string emailId = Console.ReadLine();
+                    if (emailId.Contains("@"))
+                    {
+                        person.email = emailId;
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Enter Valid Email Id,It should Contains @ ");
+                    }
+                }
+                //
+                contacts.Add(person);
+                Console.WriteLine("***************************************");
+
+                numOfContacts--;
+            }
+            //adding into address book dictionary
+            addressBookDictionary.Add(addressBookName, contacts);
+            Console.WriteLine("**************Successfully Added****************");
         }
 
-        public static void ViewContacts()
+        //method for view Contacts
+        public void ViewContacts()
         {
-            if (contacts.Count > 0)
+            if (addressBookDictionary.Count > 0)
             {
-                Console.WriteLine("****Your Contact List ****");
-                foreach (var x in contacts)
+                //printing the values in address book
+                foreach (KeyValuePair<string, List<Person>> dict in addressBookDictionary)
                 {
-                    PrintValue(x);
-                    Console.WriteLine("**************************");
+                    Console.WriteLine($"******************{dict.Key}*********************");
+                    foreach (var addressBook in dict.Value)
+                    {
+                        PrintValues(addressBook);
+                        Console.WriteLine("***********************************************");
+                    }
                 }
             }
             else
             {
                 Console.WriteLine("Address Book is Empty");
             }
+
         }
-        public static void PrintValue(Person x)
+
+        //Printing values
+        public void PrintValues(Person x)
         {
             Console.WriteLine($"First Name : {x.firstName}");
             Console.WriteLine($"Last Name : {x.lastName}");
@@ -85,8 +133,8 @@ namespace AddressBookSystem
             Console.WriteLine($"Phone Number: {x.phoneNumber}");
             Console.WriteLine($"Email: {x.email}");
         }
-        public static void EditDetails()
-        {//flag variable
+        public  void EditDetails()
+        {
             int f;
             if (contacts.Count > 0)
             {
@@ -176,8 +224,7 @@ namespace AddressBookSystem
                     else
                     {
                         Console.WriteLine("Entered name is not in Contact list");
-                        
-                        
+                                                
                     }
                 }
             }
@@ -187,9 +234,8 @@ namespace AddressBookSystem
             }
             
         }
-
-        //method for deleting conatcts
-        public static void DeleteDetails()
+        //method for Deleting conatcts
+        public  void DeleteDetails()
         {
             int f = 0;
             if (contacts.Count > 0)
