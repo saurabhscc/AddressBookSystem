@@ -11,7 +11,7 @@ namespace AddressBookSystem
 
             while (true)
             {
-                Console.WriteLine("1. Add member to Contact list \n2.View Members in Contact List\n3.Edit Contact\n4.Delete Contact\n5.Exit");
+                Console.WriteLine("1. Add member to Contact list \n2.View Members in Contact List\n3.Edit Contact\n4.Delete Contact\n5.Search Details\n6.Exit");
                 Console.WriteLine("Enter an option:");
                 switch (Convert.ToInt32(Console.ReadLine()))
                 {
@@ -29,6 +29,9 @@ namespace AddressBookSystem
                         abdictonary.DeleteDetails();
                         break;
                     case 5:
+                        abdictonary.SearchDetails();
+                        break;
+                    case 6:
                         // to exit from main method
                         Console.WriteLine("Exited");
                         return;
