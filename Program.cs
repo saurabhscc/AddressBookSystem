@@ -35,7 +35,6 @@ namespace AddressBookSystem
                         // to exit from main method
                         Console.WriteLine("Exited");
                         return;
-
                 }
             }
         }
