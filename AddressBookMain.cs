@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace AddressBookSystem
 {
     class AddressBookMain
     {
-       //list for storing objects for person class
+        //list for storing objects for person class
         private List<Person> contacts;
         //count person based on city or state
         private int countCity = 0, countState = 0;
@@ -14,6 +15,8 @@ namespace AddressBookSystem
         private List<Person> searchContacts = new List<Person>();
         //list for view contacts
         private List<Person> viewContacts = new List<Person>();
+        //list for sorting elememts
+        List<Person> SortedList = new List<Person>();
 
         //address book dictioanry to store values
         private static Dictionary<string, List<Person>> addressBookDictionary = new Dictionary<string, List<Person>>();
@@ -74,7 +77,7 @@ namespace AddressBookSystem
                     }
 
                 }
-                
+
                 Console.Write("Enter Last Name: ");
                 person.lastName = Console.ReadLine();
                 Console.Write("Enter Address: ");
@@ -162,7 +165,7 @@ namespace AddressBookSystem
             Console.WriteLine($"Phone Number: {x.phoneNumber}");
             Console.WriteLine($"Email: {x.email}");
         }
-        public  void EditDetails()
+        public void EditDetails()
         {
             //flag variable
             int f;
@@ -254,7 +257,7 @@ namespace AddressBookSystem
                     else
                     {
                         Console.WriteLine("Entered name is not in Contact list");
-                                                
+
                     }
                 }
             }
@@ -262,10 +265,10 @@ namespace AddressBookSystem
             {
                 Console.WriteLine("Your contact list is empty");
             }
-            
+
         }
         //method for Deleting conatcts
-        public  void DeleteDetails()
+        public void DeleteDetails()
         {
             int f = 0;
             //if (contacts.Count > 0)
@@ -275,7 +278,7 @@ namespace AddressBookSystem
             string deleteName = Console.ReadLine();
             if (addressBookDictionary.Count > 0)
             {
-                
+
                 if (addressBookDictionary.ContainsKey(deleteAbName))
                 {
                     foreach (KeyValuePair<string, List<Person>> dict in addressBookDictionary)
@@ -304,7 +307,7 @@ namespace AddressBookSystem
                 }
                 else
                 {
-                    
+
                     Console.WriteLine("Address Book is not found");
                 }
 
@@ -365,7 +368,7 @@ namespace AddressBookSystem
                     return;
             }
         }
-            // Method to count persons
+        // Method to count persons
 
         public void CountByStateOrCity()
         {
@@ -423,7 +426,7 @@ namespace AddressBookSystem
             }
         }
         //method to view contacts based on state name
-        public void ViewByStateName(string stateName,string check)
+        public void ViewByStateName(string stateName, string check)
         {
             if (addressBookDictionary.Count > 0)
             {
@@ -513,6 +516,28 @@ namespace AddressBookSystem
                 Console.WriteLine("Your AddressBook is empty");
             }
 
+        }
+        public void SortList()
+        {
+            if (addressBookDictionary.Count > 0)
+            {
+
+                //printing the values in address book
+                foreach (KeyValuePair<string, List<Person>> dict in addressBookDictionary)
+                {
+                    //sorting list based on first name
+                    SortedList = dict.Value.OrderBy(x => x.firstName).ToList();
+                    Console.WriteLine($"**********AFTER SORTING {dict.Key}**********");
+                    foreach (var addressBook in SortedList)
+                    {
+                        PrintValues(addressBook);
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("Address Book is Empty");
+            }
         }
     }
 }
