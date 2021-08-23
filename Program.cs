@@ -11,7 +11,7 @@ namespace AddressBookSystem
 
             while (true)
             {
-                Console.WriteLine("1. Add member to Contact list \n2.View Members in Contact List\n3.Edit Contact\n4.Delete Contact\n5.Search Details\n6.Count\n7.SortEntries\n8.Exit");
+                Console.WriteLine("1. Add member to Contact list \n2.View Members in Contact List\n3.Edit Contact\n4.Delete Contact\n5.Search Details\n6.Count\n7.SortEntries\n8.Read from file\n9.Save to file\n10.Exit");
                 Console.WriteLine("Enter an option:");
                 switch (Convert.ToInt32(Console.ReadLine()))
                 {
@@ -38,6 +38,13 @@ namespace AddressBookSystem
                         abdictonary.SortEntries();
                         break;
                     case 8:
+                        abdictonary.ReadFromFile();
+                        break;
+                    case 9:
+                        abdictonary.WriteToFile();
+                        break;
+
+                    case 10:
                         // to exit from main method
                         Console.WriteLine("Exited");
                         return;
